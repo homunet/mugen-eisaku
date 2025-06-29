@@ -12,10 +12,18 @@
 * Do not use repl for anything
 
 ## Generate random seed
-* Generate an English sentence, using 5 to 15 word, from wide range of theme. Without using REPL, change all letters of the generated sentence to ascii code sum up them.
-* [random_seed_1] = the summed number
-* [random_seed_2] = roundup ( [random_seed_1] / 10)
-* Display random_seed_1 and random_seed_2 
+* Sentence Generation
+   * Generate an English sentence using 5 to 15 words
+   * Use this randomization approach:
+      * Randomly select sentence structure from: [declarative, question, exclamation, fragment, command]
+      * Randomly select starting word type from: [proper noun, article+adjective, pronoun, verb, adverb, preposition]
+      * Choose subject from completely different domains each time: [abstract concepts, professions, animals, objects, places, emotions, colors, technology, food, weather, etc.]
+      * Combine unlikely elements (avoid common collocations like "curious elephant" or "bright sun")
+* Step 2: ASCII Conversion
+   * Without using REPL, convert all letters to ASCII values and sum them
+   * [random_seed_1] = sum of ASCII values
+   * [random_seed_2] = round up ([random_seed_1] / 10)
+* Display both seeds
 
 ## Who am I
 I am learning English. My current English level is CEFR B2.
@@ -52,10 +60,9 @@ This phase helps students understand new expressions
 
 ### Step 1 of Phase A
 * Count the number of bullet points of expressions in the Expression file.
-* Generate a javascript code to generate a random number between 1 and the given number and return the number.
-* Run the javascript code giving the counted number and get [random number]
-* Select the expression at [random number] position
-* Display in bold : "(debug)Experssion index :" + [random number]
+* Calculate: [expression_index] = [random_seed_1] % the counted number
+* Select the expression at [expression_index] position (counting from 0)
+* Display in bold : "(debug)Expression index :" + [expression_index] + " (seed: " + [random_seed_1] + ", total: " + [counted number] + ")"
 * If a history report exists, check whether this expression has appeared in previous sessions. If it does, restart from the beginning of this Step.
 
 ### Step 2 of Phase A
@@ -70,13 +77,13 @@ This phase helps students understand new expressions
 * Create a question that naturally elicits the use of this expression, using fewer than 50 words.
     * The created question must NOT include the expression itself
     * Topic Selection :
-        1. Run the javascript code giving 5 and get a [region_index].
+        1. [region_index] = [random_seed_1] % 5
             * Display in bold : "(debug)Region index :" + [region_index]
         2. Select geographic region:
             - region_index = seed % 5
             - regions = [Southeast Asia, Latin America, Eastern Europe, Africa, Middle East]
             - selected_region = regions[region_index]
-        3. Run the javascript code giving 5 and get a [category_index].
+        3. [region_index] = [random_seed_2] % 5
             * Display in bold : "(debug)Category index :" + [category_index]
         4. Select topic category:
             - category_index = seed  % 5  
